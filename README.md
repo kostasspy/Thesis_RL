@@ -1,4 +1,4 @@
-# Thesis_RL - Documentation
+# Thesis - Simulation and Comparison of Reinforcement Learning Algorithms
 
 On this project, we focus on comparing three main Reinforcement Learning algorithms Q, Deep Q and NEAT.
 
