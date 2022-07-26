@@ -1,13 +1,8 @@
-import gym
-import numpy as np
-import importlib
-import config as c
 import matplotlib.pyplot as plt
 import os
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten, Embedding, Reshape
 from keras.optimizers import Adam
-from keras.callbacks import EarlyStopping
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
 from rl.memory import SequentialMemory

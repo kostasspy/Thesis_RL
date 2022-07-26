@@ -4,9 +4,6 @@ import math
 import random
 import os
 import time
-import gym
-import methods
-from methods.envs.map_env_CatchStatic import MazeEnv
 
 
 class QLearning:
@@ -41,7 +38,6 @@ class QLearning:
 
     def run(self, env):
         self.simulate()
-        # self.test_model()
 
     def simulate(self):
         learning_rate = self.get_learning_rate(0)

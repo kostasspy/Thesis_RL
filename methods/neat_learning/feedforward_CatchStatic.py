@@ -125,4 +125,3 @@ class NEATEvolve:
         draw_net(self.config, winner, True, node_names=node_names)
         draw_net(self.config, winner, view=True, node_names=node_names, filename=save_path + "\\winner-feedforward.gv")
         draw_net(self.config, winner, view=True, node_names=node_names, filename=save_path + "\\winner-feedforward-enabled.gv", show_disabled=False)
-        # draw_net(self.config, winner, view=True, node_names=node_names, filename=save_path + "\\winner-feedforward-enabled-pruned.gv", show_disabled=False, prune_unused=True)

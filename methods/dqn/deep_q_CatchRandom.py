@@ -1,13 +1,8 @@
-import gym
-import numpy as np
-import importlib
-import config as c
 import matplotlib.pyplot as plt
 import os
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten, Embedding, Reshape
 from keras.optimizers import Adam
-from keras.callbacks import EarlyStopping
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy
 from rl.memory import SequentialMemory
@@ -58,47 +53,20 @@ class DeepQNetwork:
         print(model.summary())
         return model
 
-    def model_v2(self):
-        model = Sequential()
-        model.add(Flatten(input_shape=(1,) + self.state_size.shape))
-        model.add(Dense(60, activation='selu'))
-        model.add(Dense(70, activation='selu'))
-        model.add(Dense(70, activation='selu'))
-        model.add(Dense(40, activation='selu'))
-        model.add(Dense(self.action_size, activation='softmax'))
-        print(model.summary())
-        return model
-
-    def model_v3(self):
-        model = Sequential()
-        model.add(Flatten(input_shape=(1,) + self.state_size.shape))
-        model.add(Dense(50, activation='relu'))
-        model.add(Dense(100, activation='relu'))
-        model.add(Dense(150, activation='relu'))
-        model.add(Dense(150, activation='relu'))
-        model.add(Dense(50, activation='relu'))
-        model.add(Dense(50, activation='relu'))
-        model.add(Dense(self.action_size, activation='softmax'))
-        print(model.summary())
-        return model
-
     def build_callbacks(self):
         checkpoint_weights_filename = os.getcwd() + '\\methods\\dqn\\models\\chks\\chkDQN_CatchRandom_' + self.name + '_{step}.h5f'
         log_filename = os.getcwd() + '\\methods\\dqn\\chks\\weights\\LOG_DQN_CatchRandom_{}_log.json'.format(self.name)
         callbacks = [ModelIntervalCheckpoint(checkpoint_weights_filename, interval=1000)]
-        # callbacks += [FileLogger(log_filename, interval=100)]
         tel = TrainIntervalLogger(model_name='CatchRandom')
         callbacks += [tel]
 
         return callbacks
 
     def run(self):
-        # callbacks = EarlyStopping(monitor='episode_reward', min_delta=0, patience=20, verbose=1, restore_best_weights=True)
         memory = SequentialMemory(limit=self.seq_memory, window_length=1)
         policy = EpsGreedyQPolicy(eps=self.epsilon)
         self.dqn = DQNAgent(model=self.model, nb_actions=self.action_size, memory=memory, nb_steps_warmup=self.warm_steps, target_model_update=1e-2, policy=policy, gamma=self.gamma)
         self.dqn.compile(Adam(lr=self.learning_rate), metrics=['mse'])
-        # callbacks = self.build_callbacks()
 
         history = self.dqn.fit(self.env, nb_steps=self.nb_steps, visualize=True, verbose=1, nb_max_episode_steps=self.max_steps, log_interval=self.log_interval, callbacks=[TrainIntervalLogger(model_name='CatchRandom')])
 
@@ -116,6 +84,6 @@ class DeepQNetwork:
         policy = EpsGreedyQPolicy(eps=self.epsilon)
         test_model = DQNAgent(model=self.model, nb_actions=self.action_size, memory=memory, nb_steps_warmup=self.warm_steps, target_model_update=1e-2, policy=policy, gamma=self.gamma)
         test_model.compile(Adam(lr=self.learning_rate), metrics=['mae'])
-        test_model.load_weights(filepath=self.load_path)
+        test_model.load_weights(filepath=self.save_path)
         test_model.test(self.env, nb_episodes=10, visualize=True, nb_max_episode_steps=self.max_steps)
 

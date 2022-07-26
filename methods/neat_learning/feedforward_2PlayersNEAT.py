@@ -20,7 +20,6 @@ class NEATEvolve:
         self.t = 0.0
         self.size = self.env.map_size[0]
         self.c_turn = True
-        self.c_turn = False
 
         # Load the config file
         local_dir = os.path.dirname(__file__)
@@ -30,7 +29,6 @@ class NEATEvolve:
         self.config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
 
     def run(self):
-        '''
         # Chaser
         pop = neat.Population(self.config)
         stats = neat.StatisticsReporter()
@@ -49,7 +47,7 @@ class NEATEvolve:
             pickle.dump(winner, f)
 
         self.c_turn = False
-        '''
+
         # Runner
         self.t = 0.0
         pop = neat.Population(self.config)

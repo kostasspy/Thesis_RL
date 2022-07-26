@@ -41,7 +41,6 @@ class QLearning:
 
     def run(self, env):
         self.simulate()
-        # self.test_model()
 
     def simulate(self):
 

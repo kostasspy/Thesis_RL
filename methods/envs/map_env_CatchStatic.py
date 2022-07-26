@@ -98,7 +98,6 @@ class MapEnv(gym.Env):
                 reward = -5
             else:
                 reward = -1
-                # reward = -dist
             done = False
 
         return reward, done, None

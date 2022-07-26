@@ -89,12 +89,6 @@ class QLearning:
                 self.q_table_r[state_0_r + (action_r,)] += learning_rate * (reward_r + discount_factor * (best_q) - self.q_table_r[state_0_r + (action_r,)])
                 state_0_r = state_r
 
-                '''
-                print('t:', t)
-                print('CHASER: Observation:', obv_c, ' - Reward:', reward_c, ' - Action:', action_c)
-                print('RUNNER: Observation:', obv_r, ' - Reward:', reward_r, ' - Action:', action_r)
-                '''
-
                 if self.RENDER_MAZE:
                     self.env.render()
                 if self.env.is_game_over():
